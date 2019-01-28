@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<title>First Project</title>
+			<style>
+				#appendDataHere {
+					border: 1px solid black;
+					margin-bottom: 10px;
+				}
+				.form{border: solid red 1px}
+				
+			</style>
+	</head>
+	<body>
+		<div class="form">
+			<h1>First Project</h1>
+				<form id = "myFirstProject">
+					Title:
+					<input type = "text" name = "title" id = "userTitle"></input>
+					<br><br>
+					Text:
+					<input type = "text" name = "anyText" id = "userText"></input><br><br>
+					<input type = "submit" value = "Add" onclick = "showData()">
+				</form>
+		</div>
+		
+		<div id="appendDataHere"> 
+		
+		</div>
+			<script type = "text/javascript">
+					
+					function convertDataToJSON(){
+						var userTitle = document.getElementById("userTitle").value;
+						var userText = document.getElementById("userText").value;
+						myObj = { title: userTitle, 
+								   text : userText};
+						myJSON = JSON.stringify(myObj);
+						return myJSON;
+					}
+				
+					function addDataToLocal(){
+						JsonData = convertDataToJSON();
+						localStorage.setItem("testJSON", JsonData);
+					}	
+					
+					function readDataFromJSON(){
+						addDataToLocal();
+						text = localStorage.getItem("testJSON");
+						obj = JSON.parse(text);
+						return obj;
+						
+						//var result = document.getElementById("myFirstProject").innerHTML = obj.title;
+						//alert(result);
+					}
+					
+					function showData(){
+						var jsonConvertedToText = readDataFromJSON();
+						//var title = document.getElementById("myFirstProject").innerHTML = jsonConvertedToText.title;
+						//var text = document.getElementById("myFirstProject").innerHTML = jsonConvertedToText.text;
+
+						var node = document.createElement("P");
+						var textnode = document.createTextNode(jsonConvertedToText);
+						node.appendChild(textnode);
+						document.getElementById("appendDataHere").appendChild(node);
+					}
+						
+				</script>	
+			</form>
+	</body>
+</html>
+
